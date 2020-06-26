@@ -3,9 +3,11 @@ package com.example.product;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.cloud.stream.messaging.Processor;
 
 @Service
@@ -16,6 +18,7 @@ public class PolicyHandler {
 	
 	@StreamListener(Processor.INPUT)
 	public void onEventByString1(@Payload OrderCancelled orderCancelled){
+		
 		// json data 를 파싱하는 작업 - > 객체 
 		if( orderCancelled.getEventType().equals("OrderCancelled") ) {
 			// 주문 성공시 재고량 변경
